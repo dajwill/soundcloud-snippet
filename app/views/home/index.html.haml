@@ -1,0 +1,25 @@
+.ui.container
+  = form_tag :search, class: 'ui input', method: :get do
+    = text_field_tag :q
+    = submit_tag 'Search', class: 'ui green button'
+
+  .results
+    - if @songs.present?
+      - @songs.each do |song|
+        .ui.basic.modal{id: song.id}
+          .header
+            = song.title
+          .image.content
+            .image
+              %img.ui.image{:src => song.artwork_url}
+          .actions
+            .ui.left.floated.red.basic.inverted.button
+              %i.stop.icon
+              Stop Preview
+        .ui.middle.aligned.divided.list
+          .item
+            .right.floated.content
+              .ui.play.button{:'data-stream-url' => song.stream_url, :'data-id' => song.id} Preview
+            %img.ui.avatar.image{:src => song.artwork_url}
+              .content
+                = song.title
