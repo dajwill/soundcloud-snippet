@@ -7,17 +7,18 @@ $ ->
     ;
     audio = document.createElement("audio");
     audio.src = "#{streamUrl}?client_id=7889523d56cfc9d586bc1503d9d23baa";
+    snippet = setTimeout (->
+      audio.pause()
+      audio.remove()
+      $(".ui.basic.modal")
+        .modal('hide')
+      ;
+      return
+    ), 10000
 
     audio.addEventListener 'canplaythrough', (->
       audio.play()
-      snippet = setTimeout (->
-        audio.pause()
-        audio.remove()
-        $(".ui.basic.modal")
-          .modal('hide')
-        ;
-        return
-      ), 10000
+      snippet
       return
     ), false
 
@@ -27,4 +28,4 @@ $ ->
       $(@).closest('.ui.modal')
         .modal('hide')
       ;
-      # clearTimeout(snippet)
+      clearTimeout(snippet)
